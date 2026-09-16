@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Operacional Smarketing — Porán 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EEF0E9;
+    --bg-alt: #E5E8DE;
+    --card: #F8F9F4;
+    --ink: #201F1B;
+    --ink-soft: #52534A;
+    --line: #D3D6C7;
+    --accent: #1F5E56;
+    --accent-ink: #0E332E;
+    --accent-soft: #DDE8E2;
+    --amber: #96690F;
+    --amber-soft: #F3E6C8;
+    --brick: #8C3B34;
+    --brick-soft: #F1DCD8;
+    --radius: 3px;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mono: SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#181A16; --bg-alt:#1F221C; --card:#20231D; --ink:#EDEEE6; --ink-soft:#AEB2A2;
+      --line:#3A3E32; --accent:#5FBAA9; --accent-ink:#BFEAE0; --accent-soft:#243530;
+      --amber:#E0B45C; --amber-soft:#3A2F17; --brick:#E19086; --brick-soft:#3A211E;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#181A16; --bg-alt:#1F221C; --card:#20231D; --ink:#EDEEE6; --ink-soft:#AEB2A2;
+    --line:#3A3E32; --accent:#5FBAA9; --accent-ink:#BFEAE0; --accent-soft:#243530;
+    --amber:#E0B45C; --amber-soft:#3A2F17; --brick:#E19086; --brick-soft:#3A211E;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:16px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent-ink);}
+  h1,h2,h3,h4{font-family:var(--serif); font-weight:600; color:var(--ink); letter-spacing:-0.01em;}
+
+  /* ---------- Layout shell ---------- */
+  .shell{display:flex; min-height:100vh;}
+  nav.side{
+    width:290px; flex:0 0 290px; background:var(--bg-alt);
+    border-right:1px solid var(--line); padding:28px 20px 40px;
+    position:sticky; top:0; height:100vh; overflow-y:auto;
+  }
+  nav.side .brand{font-family:var(--serif); font-size:1.05rem; font-weight:600; margin:0 0 2px;}
+  nav.side .brand-sub{font-size:0.78rem; color:var(--ink-soft); margin-bottom:22px;}
+  nav.side ol{list-style:none; margin:0; padding:0; counter-reset:navnum;}
+  nav.side li{counter-increment:navnum;}
+  nav.side a{
+    display:flex; gap:10px; align-items:baseline; text-decoration:none; color:var(--ink-soft);
+    padding:7px 8px; border-radius:var(--radius); font-size:0.86rem; line-height:1.3;
+  }
+  nav.side a::before{
+    content: counter(navnum, decimal-leading-zero); font-family:var(--mono); font-size:0.72rem;
+    color:var(--accent); flex:0 0 auto;
+  }
+  nav.side a:hover{background:var(--card); color:var(--ink);}
+  nav.side a.active{background:var(--accent-soft); color:var(--accent-ink); font-weight:600;}
+
+  main{flex:1; min-width:0; padding:0;}
+  .wrap{max-width:880px; margin:0 auto; padding:56px 40px 100px;}
+  .wide .wrap{max-width:1020px;}
+
+  /* mobile nav toggle */
+  .navtoggle{display:none;}
+  @media (max-width: 880px){
+    .shell{display:block;}
+    nav.side{
+      position:fixed; z-index:40; left:0; top:0; height:100vh; transform:translateX(-100%);
+      transition:transform .2s ease; box-shadow:2px 0 24px rgba(0,0,0,.2);
+    }
+    nav.side.open{transform:translateX(0);}
+    .navtoggle{
+      display:flex; align-items:center; gap:8px; position:fixed; top:14px; left:14px; z-index:50;
+      background:var(--accent); color:#fff; border:none; padding:10px 14px; border-radius:20px;
+      font-family:var(--sans); font-size:0.82rem; font-weight:600; cursor:pointer;
+    }
+    .wrap{padding:80px 20px 60px;}
+  }
+
+  /* ---------- Cover / hero ---------- */
+  header.cover{
+    background: linear-gradient(180deg, var(--accent-soft), var(--bg) 85%);
+    border-bottom:1px solid var(--line);
+  }
+  header.cover .wrap{padding-top:64px; padding-bottom:48px;}
+  .eyebrow{font-size:0.82rem; color:var(--accent-ink); margin:0 0 14px; font-weight:600;}
+  header.cover h1{font-size:clamp(2.1rem, 4vw, 3rem); margin:0 0 14px; max-width:14ch;}
+  header.cover p.lede{font-size:1.08rem; color:var(--ink-soft); max-width:60ch; margin:0 0 28px;}
+  .meta-row{display:flex; flex-wrap:wrap; gap:28px; margin-top:8px;}
+  .meta-item{font-size:0.84rem; color:var(--ink-soft);}
+  .meta-item strong{display:block; font-family:var(--serif); font-size:1.35rem; color:var(--ink); font-weight:600;}
+
+  /* ---------- Content elements ---------- */
+  section{padding:52px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .kicker{font-family:var(--mono); font-size:0.74rem; letter-spacing:0.02em; color:var(--accent); margin:0 0 6px;}
+  h2.h-section{font-size:1.7rem; margin:0 0 8px;}
+  .h-sub{color:var(--ink-soft); font-size:1.02rem; margin:0 0 28px; max-width:62ch;}
+  h3{font-size:1.18rem; margin:34px 0 12px;}
+  h4{font-size:1rem; margin:22px 0 8px;}
+  p{margin:0 0 14px; max-width:72ch;}
+  ul,ol{margin:0 0 16px; padding-left:22px;}
+  li{margin-bottom:6px;}
+
+  .callout{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--accent);
+    border-radius:var(--radius); padding:16px 20px; margin:18px 0; font-size:0.94rem;
+  }
+  .callout.amber{border-left-color:var(--amber); background:var(--amber-soft);}
+  .callout.brick{border-left-color:var(--brick); background:var(--brick-soft);}
+  .callout p:last-child{margin-bottom:0;}
+
+  .badge{
+    display:inline-block; font-family:var(--mono); font-size:0.7rem; padding:2px 7px;
+    border-radius:20px; border:1px solid currentColor; vertical-align:middle;
+  }
+  .badge.pending{color:var(--amber); background:var(--amber-soft); border-color:transparent;}
+  .badge.critical{color:var(--brick); background:var(--brick-soft); border-color:transparent;}
+  .badge.ok{color:var(--accent); background:var(--accent-soft); border-color:transparent;}
+
+  table{width:100%; border-collapse:collapse; margin:16px 0 24px; font-size:0.88rem; background:var(--card);}
+  caption{text-align:left; font-size:0.8rem; color:var(--ink-soft); margin-bottom:6px; caption-side:top;}
+  th,td{border:1px solid var(--line); padding:9px 12px; text-align:left; vertical-align:top;}
+  th{background:var(--bg-alt); font-weight:600; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.02em; color:var(--ink-soft);}
+  tr:nth-child(even) td{background:color-mix(in srgb, var(--card) 92%, var(--bg));}
+  .tbl-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  code, .code{font-family:var(--mono); font-size:0.85em; background:var(--bg-alt); padding:1px 6px; border-radius:3px;}
+
+  .flow{
+    display:flex; flex-wrap:wrap; gap:0; align-items:center; margin:20px 0 26px;
+    font-family:var(--mono); font-size:0.78rem;
+  }
+  .flow span.step{
+    background:var(--card); border:1px solid var(--line); padding:8px 12px; border-radius:20px;
+  }
+  .flow span.arrow{padding:0 8px; color:var(--ink-soft);}
+
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  @media (max-width:700px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px;}
+  .card h4{margin-top:0;}
+
+  .step-list{list-style:none; margin:0; padding:0; counter-reset:steplist;}
+  .step-list li{
+    counter-increment:steplist; position:relative; padding:14px 0 14px 46px; border-top:1px solid var(--line);
+  }
+  .step-list li:first-child{border-top:none;}
+  .step-list li::before{
+    content:counter(steplist,decimal-leading-zero); position:absolute; left:0; top:14px;
+    font-family:var(--mono); font-size:0.78rem; color:var(--accent);
+    background:var(--accent-soft); width:28px; height:28px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .step-list b{display:block; margin-bottom:2px;}
+
+  .glossary dt{font-weight:600; margin-top:14px; font-family:var(--serif);}
+  .glossary dd{margin:2px 0 0; color:var(--ink-soft);}
+
+  .toc-index{list-style:none; padding:0; margin:0; display:grid; grid-template-columns:1fr 1fr; gap:8px 24px;}
+  @media (max-width:700px){.toc-index{grid-template-columns:1fr;}}
+  .toc-index a{color:var(--ink); text-decoration:none; display:flex; gap:10px; padding:6px 0; border-bottom:1px dotted var(--line);}
+  .toc-index a span.n{font-family:var(--mono); color:var(--accent); font-size:0.8rem;}
+
+  footer{padding:40px; text-align:center; color:var(--ink-soft); font-size:0.82rem;}
+
+  @media print{
+    nav.side, .navtoggle{display:none !important;}
+    .shell{display:block;}
+    section{border-bottom:none; page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<button class="navtoggle" onclick="document.querySelector('nav.side').classList.toggle('open')">☰ Sumário</button>
+
+<div class="shell">
+  <nav class="side" aria-label="Sumário">
+    <p class="brand">Manual Smarketing</p>
+    <p class="brand-sub">Porán · Máquina de Receita 2026</p>
+    <ol>
+      <li><a href="#visao-geral">Visão geral do modelo</a></li>
+      <li><a href="#funil">Funil comercial B2B</a></li>
+      <li><a href="#playbook">Playbook do vendedor</a></li>
+      <li><a href="#perdas">Motivos de perda</a></li>
+      <li><a href="#sla">SLA Marketing × Comercial</a></li>
+      <li><a href="#recompra">Jornada de recompra</a></li>
+      <li><a href="#representantes">Representantes e distribuidores</a></li>
+      <li><a href="#alcadas">Política comercial e alçadas</a></li>
+      <li><a href="#mercos">Regras comerciais no Mercos</a></li>
+      <li><a href="#kpis">Indicadores (KPIs)</a></li>
+      <li><a href="#papeis">Papéis e escalonamento</a></li>
+      <li><a href="#pendencias">Pendências abertas</a></li>
+      <li><a href="#glossario">Glossário</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <header class="cover">
+      <div class="wrap">
+        <p class="eyebrow">SMARKETING PORÃ 2026 — MANUAL OPERACIONAL</p>
+        <h1>Do lead ao cliente recorrente, em um só lugar</h1>
+        <p class="lede">Este manual consolida os processos de Marketing e Comercial B2B da Porã em uma
+        referência única — funil, playbook do vendedor, SLA, motivos de perda, recompra, gestão de
+        carteira, alçadas, regras do Mercos e indicadores. Serve tanto para consulta rápida no dia a dia
+        quanto para onboarding de novos representantes e executivos.</p>
+        <div class="meta-row">
+          <div class="meta-item"><strong>9</strong>documentos-fonte consolidados</div>
+          <div class="meta-item"><strong>10</strong>códigos oficiais de motivo de perda</div>
+          <div class="meta-item"><strong>9</strong>etapas no funil B2B</div>
+          <div class="meta-item"><strong>3</strong>categorias de carteira (A/B/C)</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap">
+
+    <!-- 1. VISÃO GERAL -->
+    <section id="visao-geral">
+      <p class="kicker">01 — FUNDAMENTOS</p>
+      <h2 class="h-section">Visão geral do modelo</h2>
+      <p class="h-sub">Antes de entrar em cada processo, alguns conceitos e definições valem para todo o
+      manual — eles aparecem repetidamente nas seções seguintes.</p>
+
+      <h3>Tipos de cliente B2B</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Termo</th><th>Definição</th></tr></thead>
+        <tbody>
+          <tr><td><b>Varejo</b></td><td>Loja, salão, clínica, perfumaria, farmácia ou ponto que revende ao consumidor final.</td></tr>
+          <tr><td><b>Atacado</b></td><td>Empresa que compra volumes maiores para redistribuir ou operar distribuição regional.</td></tr>
+          <tr><td><b>Atacadinho</b></td><td>Comércio com sortimento enxuto, reposição frequente, sensível a preço/prazo/giro.</td></tr>
+          <tr><td><b>Lead</b></td><td>Contato empresarial ainda não qualificado.</td></tr>
+          <tr><td><b>Oportunidade</b></td><td>Lead com perfil, necessidade e potencial suficientes para receber proposta.</td></tr>
+          <tr><td><b>Cliente ativado</b></td><td>Cliente que concluiu o primeiro pedido, recebeu e foi acompanhado no pós-venda inicial.</td></tr>
+          <tr><td><b>Recompra</b></td><td>Novo pedido dentro da janela de consumo/reposição da categoria.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Sistemas do ecossistema comercial</h3>
+      <div class="grid-3">
+        <div class="card"><h4>Mercos</h4><p style="margin:0">Sistema oficial da execução B2B: carteira, pedido, catálogo, tabela, reposição e operação de campo. Registro final de qualquer venda sempre volta para cá.</p></div>
+        <div class="card"><h4>RD Station Marketing</h4><p style="margin:0">Fonte de leads/prospects de múltiplos canais e automações de recompra (categorias B e C da carteira).</p></div>
+        <div class="card"><h4>RD Station Conversas</h4><p style="margin:0">Canal de comunicação via WhatsApp; atrai leads e prospects e os direciona ao Mercos.</p></div>
+      </div>
+
+      <h3>Situação da carteira (base para recompra e reativação)</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Situação</th><th>Critério</th></tr></thead>
+        <tbody>
+          <tr><td><b>Ativo</b></td><td>0 a 90 dias sem compra — dentro da janela de recompra esperada.</td></tr>
+          <tr><td><b>Atenção</b></td><td>91 a 180 dias sem compra — aciona cadência de recompra preventiva.</td></tr>
+          <tr><td><b>Churn</b></td><td>Mais de 180 dias sem compra — sai do funil ativo e entra na Jornada de Reativação B2B (fora do escopo deste manual).</td></tr>
+        </tbody>
+      </table></div>
+      <p>A janela de recompra é definida pelo histórico real de consumo, tipo de cliente, categoria e
+      tamanho do pedido. Sem histórico, combina-se uma data de revisão em vez de presumir um ciclo.</p>
+    </section>
+
+    <!-- 2. FUNIL -->
+    <section id="funil">
+      <p class="kicker">02 — COM-06</p>
+      <h2 class="h-section">Funil comercial B2B</h2>
+      <p class="h-sub">Organiza aquisição, qualificação, conversão, ativação e retenção de clientes
+      empresariais. Toda oportunidade precisa de critério claro de passagem, responsável definido,
+      próxima ação registrada e motivo padronizado quando não avançar.</p>
+
+      <div class="flow">
+        <span class="step">Mercado-alvo</span><span class="arrow">→</span>
+        <span class="step">Prospect</span><span class="arrow">→</span>
+        <span class="step">Qualificado</span><span class="arrow">→</span>
+        <span class="step">Oportunidade</span><span class="arrow">→</span>
+        <span class="step">Negociação</span><span class="arrow">→</span>
+        <span class="step">1º pedido</span><span class="arrow">→</span>
+        <span class="step">Ativação</span><span class="arrow">→</span>
+        <span class="step">Recompra</span><span class="arrow">→</span>
+        <span class="step">Expansão</span>
+      </div>
+
+      <h3>Etapas, critérios e próxima ação</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Etapa</th><th>Critério de entrada</th><th>Critério de saída</th><th>Dono</th><th>Sistema</th></tr></thead>
+        <tbody>
+          <tr><td>Lead recebido</td><td>Novo contato com nome, empresa e canal de origem</td><td>Contato validado (ou descarte por duplicidade/inválido)</td><td>SDR / Atendimento B2B</td><td>RD Marketing</td></tr>
+          <tr><td>Contato iniciado</td><td>1ª tentativa registrada</td><td>Respondeu e avançou, ou cadência concluída sem retorno</td><td>SDR</td><td>RD CRM / RD Conversas</td></tr>
+          <tr><td>Qualificação B2B</td><td>Interação registrada</td><td>Perfil, potencial, necessidade, região, mix e condições documentados</td><td>SDR</td><td>RD CRM</td></tr>
+          <tr><td>Diagnóstico e necessidade</td><td>Lead qualificado com perfil compatível</td><td>Necessidade validada e recomendação comercial definida</td><td>Executivo de contas</td><td>RD CRM</td></tr>
+          <tr><td>Proposta enviada</td><td>Diagnóstico concluído</td><td>Proposta recebida: aceite, rejeição ou data de retorno registrada</td><td>Executivo de contas</td><td>RD CRM → Mercos</td></tr>
+          <tr><td>Negociação</td><td>Pendência de preço/prazo/mix/pagamento/logística</td><td>Condições aprovadas e pedido encaminhado, ou perda registrada</td><td>Executivo de contas</td><td>Mercos</td></tr>
+          <tr><td>Pedido em aprovação</td><td>Cliente aceitou condições</td><td>Cadastro, crédito, estoque e entrega aprovados</td><td>Comercial + Financeiro + Operações</td><td>Mercos</td></tr>
+          <tr><td>Venda ganha / 1º pedido</td><td>Pedido aprovado e confirmado</td><td>Pedido faturado e entregue; ativação iniciada</td><td>Operações + Comercial</td><td>Mercos</td></tr>
+          <tr><td>Ativação pós-venda</td><td>1º pedido entregue</td><td>Orientação de uso/exposição confirmada; satisfação inicial ok</td><td>Customer Success B2B / Executivo</td><td>Mercos</td></tr>
+          <tr><td>Recompra em acompanhamento</td><td>Cliente ativado, dentro da janela esperada</td><td>Nova compra realizada, ou cliente classificado em risco/inativo</td><td>Executivo de contas</td><td>Mercos</td></tr>
+          <tr><td>Recompra realizada</td><td>Novo pedido confirmado</td><td>Segue rotina de carteira, campanhas e revisão periódica</td><td>Executivo de contas</td><td>Mercos</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Qualificação por perfil de comprador</h3>
+      <p>A qualificação é proporcional ao tipo de comprador: para <b>varejo</b>, foco em categoria,
+      público, capacidade de exposição, ticket e frequência de reposição; para <b>atacado</b>, região,
+      canais de distribuição, volume, cobertura de estoque e capacidade logística; para
+      <b>atacadinho</b>, sortimento de maior giro, capital disponível, espaço físico, sensibilidade a
+      preço e reposições curtas.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Dimensão</th><th>Pergunta mínima</th><th>Evidência para avançar</th></tr></thead>
+        <tbody>
+          <tr><td>Perfil</td><td>Tipo de operação: varejo, atacado ou atacadinho?</td><td>Segmento e atividade principal registrados</td></tr>
+          <tr><td>Mercado</td><td>Cidade/região e público-alvo?</td><td>Região de atuação e perfil do consumidor descrito</td></tr>
+          <tr><td>Mix</td><td>Categorias de interesse (cabelo, corpo, facial etc.)?</td><td>Categorias e produtos de interesse registrados</td></tr>
+          <tr><td>Volume</td><td>Volume inicial e frequência de compra estimados?</td><td>Faixa de pedido inicial e periodicidade</td></tr>
+          <tr><td>Operação</td><td>Como compra hoje e quais fornecedores usa?</td><td>Processo atual e oportunidade identificada</td></tr>
+          <tr><td>Decisão</td><td>Quem decide e participa da aprovação?</td><td>Nome, cargo e etapa decisória conhecida</td></tr>
+          <tr><td>Prazo</td><td>Existe data, campanha ou necessidade de reposição?</td><td>Data de compra ou urgência registrada</td></tr>
+          <tr><td>Viabilidade</td><td>Há restrição de preço, pagamento, mínimo ou entrega?</td><td>Objeções e condições críticas documentadas</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Cadência de contato (referência operacional)</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Momento</th><th>Ação</th><th>Objetivo</th></tr></thead>
+        <tbody>
+          <tr><td>D0</td><td>Primeiro contato personalizado</td><td>Confirmar recebimento, entender o negócio, obter permissão para diagnóstico</td></tr>
+          <tr><td>D1</td><td>Segunda tentativa em canal alternativo</td><td>Aumentar chance de conexão sem repetir mensagem</td></tr>
+          <tr><td>D3</td><td>Envio de conteúdo útil ou pergunta objetiva</td><td>Estimular resposta com base em mix, margem, giro</td></tr>
+          <tr><td>D5</td><td>Ligação ou áudio curto</td><td>Resolver dúvida e verificar timing de compra</td></tr>
+          <tr><td>D7</td><td>Última tentativa da cadência ativa</td><td>Solicitar definição: avançar, adiar ou encerrar</td></tr>
+          <tr><td>D30 ou data combinada</td><td>Reabertura programada</td><td>Retomar leads sem timing, se não houver desqualificação definitiva</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout"><p>Se todas as tentativas da cadência forem concluídas sem resposta, encerrar
+      com <span class="code">P01 — Sem retorno após cadência</span> e direcionar para nutrição ou
+      reativação futura.</p></div>
+
+      <h3>Sinais de risco e ação de recuperação</h3>
+      <p>Atraso recorrente, queda de volume, reclamação sem resolução, ausência de resposta na janela
+      combinada e ruptura de itens essenciais são sinais de risco. Ao identificar qualquer um, o dono da
+      conta deve abrir uma <b>ação de recuperação</b> com causa, responsável e prazo. Cliente sem compra
+      após duas janelas previstas e uma cadência de recuperação documentada é classificado como
+      inativo — preservando a possibilidade de reativação futura.</p>
+
+      <h3>Papéis no funil</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Papel</th><th>Responsabilidade</th></tr></thead>
+        <tbody>
+          <tr><td>SDR / Atendimento B2B</td><td>Receber, deduplicar, iniciar contato, qualificar e agendar passagem para vendas</td></tr>
+          <tr><td>Executivo de contas</td><td>Conduzir diagnóstico, proposta, negociação, fechamento, ativação e recompra</td></tr>
+          <tr><td>Financeiro</td><td>Validar cadastro, condição de pagamento, limite e pendências financeiras</td></tr>
+          <tr><td>Operações/Logística</td><td>Confirmar estoque, prazo, separação, faturamento, expedição e entrega</td></tr>
+          <tr><td>Customer Success B2B</td><td>Apoiar ativação, satisfação inicial, adoção do mix e recuperação de risco</td></tr>
+          <tr><td>Coordenação Comercial</td><td>Auditar o funil, remover impedimentos, acompanhar indicadores e revisar regras</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Indicadores de acompanhamento do funil</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Indicador</th><th>Fórmula</th><th>Frequência</th><th>Dono</th></tr></thead>
+        <tbody>
+          <tr><td>Conversão de lead em qualificado</td><td>Leads qualificados ÷ leads recebidos</td><td>Semanal</td><td>Coordenação Comercial</td></tr>
+          <tr><td>Conversão de proposta em pedido</td><td>Pedidos ganhos ÷ propostas enviadas</td><td>Semanal/mensal</td><td>Executivo de contas</td></tr>
+          <tr><td>Tempo de primeiro contato</td><td>Data/hora do 1º contato − data/hora de entrada</td><td>Semanal</td><td>SDR</td></tr>
+          <tr><td>Taxa de ativação</td><td>Clientes com pós-venda concluído ÷ 1ºs pedidos entregues</td><td>Mensal</td><td>CS B2B</td></tr>
+          <tr><td>Taxa de recompra</td><td>Clientes com novo pedido ÷ clientes ativados na coorte</td><td>Mensal</td><td>Comercial</td></tr>
+          <tr><td>Taxa de perda por motivo</td><td>Oportunidades perdidas por código ÷ oportunidades encerradas sem venda</td><td>Mensal</td><td>Coordenação Comercial</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 3. PLAYBOOK -->
+    <section id="playbook">
+      <p class="kicker">03 — COM-12</p>
+      <h2 class="h-section">Playbook do vendedor</h2>
+      <p class="h-sub">Guia prático para representante, executivo ou vendedor trabalhar um cliente do
+      início ao fim sem precisar perguntar "e agora, o que eu faço?".</p>
+
+      <ol class="step-list">
+        <li><b>Lead recebido.</b> Confira se o contato já existe na base (evita duplicidade). Se for novo,
+        registre nome, empresa e canal de origem. Faça a 1ª tentativa dentro do SLA vigente.</li>
+        <li><b>Contato iniciado.</b> Ligue, mande WhatsApp ou e-mail. Se não responder, siga a cadência
+        D0–D30. Em contato presencial, registre check-in e check-out.</li>
+        <li><b>Qualificação B2B.</b> Responda as 8 perguntas mínimas de qualificação. Não pule etapas:
+        sem perfil definido, não avance para diagnóstico.</li>
+        <li><b>Diagnóstico e necessidade.</b> Entenda necessidade, mix, volume, frequência e possíveis
+        objeções. Monte a recomendação de mix com base nisso.</li>
+        <li><b>Proposta enviada.</b> Envie preço, mix, condição de pagamento e prazo de entrega, com
+        validade clara. Se o cliente já estiver no WhatsApp com o representante, proposta e negociação
+        seguem direto no Mercos.</li>
+        <li><b>Negociação.</b> Trate a objeção principal primeiro (preço, prazo, mix ou logística). Fique
+        dentro da Política Comercial Padrão — qualquer coisa fora disso precisa passar pelo Brino. Se não
+        fechar, registre o motivo da perda antes de encerrar.</li>
+        <li><b>Pedido em aprovação.</b> Confirme cadastro, crédito, estoque e entrega antes de liberar.
+        Financeiro e Operações participam aqui. Se alguma validação for reprovada, registre a pendência,
+        o responsável pela tratativa e o prazo estimado.</li>
+        <li><b>Venda ganha / 1º pedido.</b> Confirme faturamento e envio. Dê as boas-vindas ao cliente —
+        esse é o gatilho para o time de Ativação assumir o pós-venda.</li>
+        <li><b>Ativação pós-venda.</b> Oriente sobre exposição, uso e reposição. Confirme satisfação
+        inicial. Cliente insatisfeito na ativação é sinal de risco — não ignore.</li>
+        <li><b>Recompra em acompanhamento.</b> Acione o cliente antes do fim da janela esperada de
+        consumo — não espere ele ficar sem estoque. Se ultrapassar a janela sem interação comercial,
+        classifique como risco e registre ação de recuperação com responsável, prazo e próxima ação.</li>
+        <li><b>Recompra realizada.</b> Registre o novo pedido e planeje a próxima janela. Avalie a
+        oportunidade de expandir o mix — cliente recorrente é candidato a cross-sell e up-sell.</li>
+      </ol>
+
+      <h3>Critério obrigatório para concluir a qualificação</h3>
+      <ul>
+        <li>Perfil B2B compatível confirmado;</li>
+        <li>Todas as 8 perguntas mínimas respondidas (obrigatório);</li>
+        <li>Potencial de compra identificado;</li>
+        <li>Decisor ou aprovador identificado;</li>
+        <li>Próxima ação registrada.</li>
+      </ul>
+
+      <h3>Cadência de contato quando o cliente não responde</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Momento</th><th>Ação</th></tr></thead>
+        <tbody>
+          <tr><td>D0</td><td>Ligação + WhatsApp</td></tr>
+          <tr><td>D2</td><td>WhatsApp</td></tr>
+          <tr><td>D5</td><td>Ligação</td></tr>
+          <tr><td>D10</td><td>E-mail</td></tr>
+          <tr><td>D20</td><td>WhatsApp</td></tr>
+          <tr><td>D30</td><td>Encerrar com P01</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Comissão oficial por canal</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Canal</th><th>Comissão</th></tr></thead>
+        <tbody>
+          <tr><td>Distribuidor</td><td>5%</td></tr>
+          <tr><td>Atacado</td><td>6%</td></tr>
+          <tr><td>Atacadinho</td><td>8%</td></tr>
+          <tr><td>Varejo</td><td>10%</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Regra de titularidade do cliente</h3>
+      <p>O cliente permanece atribuído ao representante por até <b>90 dias</b> sem nova atividade válida
+      registrada (contato com resultado, visita, proposta, negociação ou pedido). Depois de 90 dias sem
+      atividade, o cliente fica disponível para redistribuição. Anotação genérica ou tentativa sem
+      resultado <b>não</b> renova a titularidade — registre sempre com resultado e próxima ação.</p>
+
+      <h3>Quando escalar — guia rápido</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Situação</th><th>Para quem escalar</th></tr></thead>
+        <tbody>
+          <tr><td>Condição fora da Política Comercial Padrão (desconto, prazo, frete diferente)</td><td>Brino (1ª instância)</td></tr>
+          <tr><td>Bonificação/amostras ou pedido abaixo do mínimo</td><td>Brino (1ª instância)</td></tr>
+          <tr><td>Exceção estratégica, que gera precedente ou impacto relevante de margem</td><td>Frederico (2ª instância, só quando o Brino escalar)</td></tr>
+          <tr><td>Conflito de titularidade (dois vendedores no mesmo cliente)</td><td>Gestão comercial → Brino → Frederico</td></tr>
+          <tr><td>Cliente sem atividade há mais de 60 dias</td><td>Registrar próxima ação; aos 90 dias a gestão avalia redistribuição</td></tr>
+          <tr><td>Dúvida técnica sobre o sistema (Mercos/RD)</td><td>Gabriel Bassani</td></tr>
+          <tr><td>Dúvida sobre crédito</td><td>Financeiro (análise padrão) → Brino em exceção</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 4. MOTIVOS DE PERDA -->
+    <section id="perdas">
+      <p class="kicker">04 — PROC-03</p>
+      <h2 class="h-section">Motivos de perda / não venda</h2>
+      <p class="h-sub">Taxonomia oficial e obrigatória sempre que um lead ou oportunidade é encerrado
+      sem venda. Registre sempre a causa real — não apenas o sintoma — e um único motivo principal.</p>
+
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Código</th><th>Motivo</th><th>Classificação</th><th>Tratamento posterior</th></tr></thead>
+        <tbody>
+          <tr><td><span class="code">P01</span></td><td>Sem retorno após cadência</td><td>Não venda</td><td>Nutrição e reavaliação em 30–60 dias</td></tr>
+          <tr><td><span class="code">P02</span></td><td>Sem perfil B2B ou compra para uso próprio</td><td>Desqualificação</td><td>Encaminhar ao canal adequado, se existir; retirar do funil B2B</td></tr>
+          <tr><td><span class="code">P03</span></td><td>Volume abaixo do mínimo comercial</td><td>Desqualificação comercial</td><td>Oferecer kit, canal ou política compatível, se disponível</td></tr>
+          <tr><td><span class="code">P04</span></td><td>Preço ou margem não viáveis</td><td>Perda comercial</td><td>Registrar faixa desejada; avaliar campanha ou mix alternativo</td></tr>
+          <tr><td><span class="code">P05</span></td><td>Condição de pagamento incompatível</td><td>Perda comercial</td><td>Reavaliar quando houver condição aprovada ou pagamento antecipado</td></tr>
+          <tr><td><span class="code">P06</span></td><td>Região ou logística inviável</td><td>Perda operacional</td><td>Encaminhar para distribuidor ou rota compatível, se existente</td></tr>
+          <tr><td><span class="code">P07</span></td><td>Sem estoque ou mix disponível</td><td>Perda operacional</td><td>Criar tarefa de retorno para reposição ou oferta substituta</td></tr>
+          <tr><td><span class="code">P08</span></td><td>Comprou de concorrente</td><td>Perda competitiva</td><td>Registrar concorrente, causa e data provável de revisão</td></tr>
+          <tr><td><span class="code">P09</span></td><td>Projeto adiado</td><td>Perda temporária</td><td>Programar follow-up na data informada pelo cliente</td></tr>
+          <tr><td><span class="code">P10</span></td><td>Cadastro, crédito ou compliance reprovado</td><td>Bloqueio cadastral</td><td>Encerrar com justificativa objetiva, sem expor dados sensíveis</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Agrupamento gerencial (dashboards e tendências)</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Grupo</th><th>Códigos</th></tr></thead>
+        <tbody>
+          <tr><td>Desqualificação</td><td>P02, P03</td></tr>
+          <tr><td>Perda comercial</td><td>P04, P05</td></tr>
+          <tr><td>Perda operacional</td><td>P06, P07</td></tr>
+          <tr><td>Perda competitiva</td><td>P08</td></tr>
+          <tr><td>Perda temporária</td><td>P01, P09</td></tr>
+          <tr><td>Bloqueio cadastral</td><td>P10</td></tr>
+        </tbody>
+      </table></div>
+      <p>O agrupamento gerencial não substitui o registro obrigatório do código individual — ele existe
+      só para análises executivas e dashboards.</p>
+
+      <h3>Princípios obrigatórios de registro</h3>
+      <ul>
+        <li>Registrar somente um motivo principal por encerramento;</li>
+        <li>Selecionar a causa determinante, não apenas um sintoma observado — ex.: se o cliente disse
+        "vou pensar" mas o motivo real foi preço, registre <span class="code">P04</span>, não
+        <span class="code">P09</span>;</li>
+        <li>Não encerrar lead/oportunidade sem motivo preenchido;</li>
+        <li>Registrar observação breve e objetiva, livre de dados pessoais ou financeiros sensíveis;</li>
+        <li>Registrar data da última interação e, quando aplicável, data da próxima tentativa/reativação;</li>
+        <li>Usar somente os códigos oficiais — "Outro" não existe na v1.</li>
+      </ul>
+
+      <h3>Sistema, papéis e governança</h3>
+      <div class="tbl-wrap"><table>
+        <tbody>
+          <tr><th>Sistema mestre</th><td>RD Station CRM. Mercos/Bling permanecem como fontes de pedido e faturamento, não como mestre analítico do motivo de perda.</td></tr>
+          <tr><th>Responsável pelo registro</th><td>Vendedor, representante ou responsável comercial que encerra o lead/oportunidade.</td></tr>
+          <tr><th>Responsável pela qualidade</th><td>Coordenação Comercial, com auditoria amostral de Victor Hugo/QA durante estabilização.</td></tr>
+          <tr><th>Dono do processo</th><td>Brino — consolidação, governança e controle de mudança.</td></tr>
+          <tr><th>Revisão</th><td>Após o primeiro ciclo de medição e, depois, trimestral — ou sempre que a taxa de inconsistências exceder 5%.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout amber"><p><span class="badge pending">Contingência</span> Se o campo ainda não
+      estiver configurado no sistema, a taxonomia permanece válida e o registro transitório deve ocorrer
+      em controle único definido pela Coordenação Comercial, sem duplicar registros em sistemas
+      diferentes.</p></div>
+
+      <h3>Indicadores de acompanhamento</h3>
+      <ul>
+        <li>Taxa de perda por código = oportunidades perdidas pelo código ÷ oportunidades encerradas sem venda;</li>
+        <li>Valor potencial perdido por código, etapa, vendedor, origem, região e período;</li>
+        <li>% de registros com inconsistências (sem observação, sem próxima ação, classificação incorreta);</li>
+        <li>Taxa de recuperação dos códigos temporários P01, P07 e P09;</li>
+        <li>Tempo médio entre encerramento e registro do motivo;</li>
+        <li>Taxa de reincidência por motivo.</li>
+      </ul>
+      <p style="color:var(--ink-soft); font-size:0.9rem;">Registros auditados com inconsistências devem
+      ser corrigidos pelo responsável em até 2 dias úteis após notificação da Coordenação Comercial ou de QA.</p>
+    </section>
+
+    <!-- 5. SLA -->
+    <section id="sla">
+      <p class="kicker">05 — PROC-02</p>
+      <h2 class="h-section">SLA Marketing × Comercial</h2>
+      <p class="h-sub">Define os tempos e responsabilidades na passagem de um lead do Marketing para o
+      Comercial, com base em benchmark de mercado.</p>
+
+      <div class="flow">
+        <span class="step">Lead recebido</span><span class="arrow">→</span>
+        <span class="step">Qualificação</span><span class="arrow">→</span>
+        <span class="step">Aceite comercial</span><span class="arrow">→</span>
+        <span class="step">Perda/Nutrição</span><span class="arrow">→</span>
+        <span class="step">Venda</span><span class="arrow">→</span>
+        <span class="step">Retroalimentação BI</span>
+      </div>
+
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Etapa</th><th>Regra</th><th>Operacional</th><th>Proprietário</th></tr></thead>
+        <tbody>
+          <tr><td>Lead recebido</td><td>Registrar origem e identificador (obrigatórios)</td><td>Marketing / RD Marketing</td><td>Miriã</td></tr>
+          <tr><td>Qualificação</td><td>Critérios por ICP, região, necessidade, potencial comercial mínimo e canal de contato válido</td><td>Marketing → Comercial</td><td>Miriã</td></tr>
+          <tr><td>Aceite comercial</td><td><span class="badge pending">em validação</span> proposta: até 1h útil para lead quente via WhatsApp; até 4h úteis para lead padrão</td><td>Vendedor/SDR</td><td>Miriã</td></tr>
+          <tr><td>Rejeição</td><td>Obrigatoriamente usar motivo padronizado</td><td>Vendedor/SDR</td><td>Vendedor/SDR</td></tr>
+          <tr><td>Sem contato</td><td><span class="badge pending">em validação</span> proposta: 3 tentativas em até 72h antes de devolver à nutrição</td><td>Vendedor/SDR</td><td>Vendedor/SDR</td></tr>
+          <tr><td>Resposta positiva à reativação</td><td>Gerar tarefa/oportunidade para Comercial</td><td>RD Marketing → Comercial</td><td>Miriã</td></tr>
+          <tr><td>Perda</td><td>Registrar motivo; retornar ao fluxo de Marketing quando cabível</td><td>Vendedor/SDR</td><td>Vendedor/SDR</td></tr>
+          <tr><td>Venda</td><td>Pedido faturado e entregue atualiza automaticamente os indicadores, com rastreabilidade do lead até a venda</td><td>Mercos → BI</td><td>Gabriel Bassani</td></tr>
+        </tbody>
+      </table></div>
+      <p style="font-size:0.86rem; color:var(--ink-soft);"><b>Operacional</b> = quem executa a atividade.
+      <b>Proprietário</b> = responsável pela regra, monitoramento e revisão do indicador.</p>
+
+      <h3>Lead quente vs. lead padrão</h3>
+      <div class="grid-2">
+        <div class="card"><h4>Lead quente</h4><ul style="margin-bottom:0;">
+          <li>Solicitação de preço</li><li>Solicitação de proposta</li>
+          <li>Interesse imediato de compra</li><li>Pedido de contato comercial</li>
+        </ul></div>
+        <div class="card"><h4>Lead padrão</h4><ul style="margin-bottom:0;">
+          <li>Solicitação de informação</li><li>Interesse exploratório</li>
+          <li>Cadastro sem intenção imediata de compra</li>
+        </ul></div>
+      </div>
+
+      <h3>Nutrição</h3>
+      <p>Leads encaminhados para nutrição permanecem sob responsabilidade do Marketing até nova
+      interação, engajamento ou reativação. Quando houver resposta positiva, gerar nova tarefa/oportunidade
+      para o Comercial.</p>
+
+      <div class="callout"><p><b>Volume de referência:</b> ~45 leads/dia para um time de 9 executivos
+      (~5 leads/dia por pessoa) — volume compatível com os SLAs propostos sem indicar sobrecarga
+      operacional. Recomenda-se adoção inicial dos SLAs com revisão após 60 dias de operação.</p></div>
+
+      <h3>Benchmark de mercado (referência de piso, não meta)</h3>
+      <p style="font-size:0.9rem; color:var(--ink-soft);">Não existe benchmark público específico para
+      cosméticos B2B/atacado; os dados abaixo são do mercado B2B em geral (majoritariamente SaaS/tecnologia).</p>
+      <ul>
+        <li>Tempo médio de primeira resposta no mercado em geral: ~42–47 horas (piso a superar, não meta);</li>
+        <li>Leads contatados em até 5 minutos convertem ~21× mais do que após 30 minutos;</li>
+        <li>Leads contatados em até 1 hora têm 7× mais chance de qualificação;</li>
+        <li>Empresas com SLA formal respondem em até 15 min quase 2× mais que empresas sem SLA (54,9% vs. 29,5%);</li>
+        <li>Para WhatsApp B2B especificamente, um SLA comum de mercado é responder em até 15 minutos.</li>
+      </ul>
+      <p style="font-size:0.78rem; color:var(--ink-soft);">Fontes: Optifai (939 empresas B2B, 2025–2026);
+      LeanData/Blazeo Speed-to-Lead Benchmark 2026; IVRIS Tech; Jestor (SLA WhatsApp B2B).</p>
+
+      <h3>Indicadores</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Indicador</th><th>Fórmula</th><th>Frequência</th></tr></thead>
+        <tbody>
+          <tr><td>SLA atendido</td><td>Leads dentro do prazo ÷ leads recebidos</td><td>Semanal</td></tr>
+          <tr><td>Tempo médio de resposta</td><td>Soma dos tempos ÷ total de leads</td><td>Semanal</td></tr>
+          <tr><td>Taxa de aceite comercial</td><td>Leads aceitos ÷ leads qualificados</td><td>Mensal</td></tr>
+          <tr><td>Taxa de rejeição</td><td>Leads rejeitados ÷ leads qualificados</td><td>Mensal</td></tr>
+          <tr><td>Retorno da nutrição</td><td>Leads reativados ÷ leads nutridos</td><td>Mensal</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 6. RECOMPRA -->
+    <section id="recompra">
+      <p class="kicker">06 — COM-11</p>
+      <h2 class="h-section">Jornada de recompra B2B</h2>
+      <p class="h-sub">Cobre clientes ainda <b>Ativos</b> ou em <b>Atenção</b> (0 a 180 dias sem compra).
+      Clientes em Churn (+180 dias) seguem para a Jornada de Reativação B2B — entrega separada, fora
+      deste escopo.</p>
+
+      <div class="flow">
+        <span class="step">Pedido registrado</span><span class="arrow">→</span>
+        <span class="step">Janela de reposição</span><span class="arrow">→</span>
+        <span class="step">Gatilho aos 91 dias</span><span class="arrow">→</span>
+        <span class="step">Ação disparada</span><span class="arrow">→</span>
+        <span class="step">Registro do resultado</span>
+      </div>
+      <p>O gatilho principal dispara quando o cliente entra na faixa "Atenção" (91 a 180 dias sem
+      compra) — antes de completar 180 dias e cair em Churn. A janela estimada de reposição é calculada
+      com base no histórico de compras, frequência média e mix adquirido, e fica registrada no sistema de
+      acompanhamento da carteira.</p>
+
+      <h3>Ação por categoria de carteira</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Categoria</th><th>Situação</th><th>Ação disparada</th><th>Responsável</th></tr></thead>
+        <tbody>
+          <tr><td><b>A — Estratégico</b></td><td>Ativo, dentro da janela</td><td>Alerta preventivo automático + criação automática de oportunidade no Mercos, prazo configurável por funil</td><td>Representante/Executivo (via Mercos)</td></tr>
+          <tr><td><b>A — Estratégico</b></td><td>Em Atenção</td><td>Abordagem manual personalizada, prioridade máxima</td><td>Representante/Executivo</td></tr>
+          <tr><td><b>B — Desenvolvimento</b></td><td>Ativo ou em Atenção</td><td>Automação de recompra + sugestão de cross-sell</td><td>RD Marketing (Miriã)</td></tr>
+          <tr><td><b>C — Manutenção</b></td><td>Ativo ou em Atenção</td><td>Automação padrão de recompra, sem abordagem manual</td><td>RD Marketing (Miriã)</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout amber"><p><b>Dependência crítica:</b> para as automações B e C dispararem, a
+      tag de categoria (B ou C) precisa estar populada no perfil do lead dentro do RD Station.
+      Sincronização Mercos ↔ RD Station sob responsabilidade de <b>Gabriel Bassani</b> e
+      <b>Guilherme Dias</b>.</p></div>
+      <div class="callout"><p><b>Contingência operacional:</b> se a automação falhar (integração,
+      ausência de tag ou indisponibilidade da plataforma), deve-se criar tarefa manual para validação da
+      carteira impactada e execução da ação correspondente.</p></div>
+
+      <h3>Fluxo do processo</h3>
+      <div class="flow">
+        <span class="step">Identificar janela</span><span class="arrow">→</span>
+        <span class="step">Gerar gatilho</span><span class="arrow">→</span>
+        <span class="step">Automação (B/C) ou tarefa (A)</span><span class="arrow">→</span>
+        <span class="step">Contato</span><span class="arrow">→</span>
+        <span class="step">Novo pedido</span><span class="arrow">→</span>
+        <span class="step">Registrar resultado</span><span class="arrow">→</span>
+        <span class="step">Recalibrar janela</span>
+      </div>
+      <p>Após cada nova compra efetivada, a data da última compra passa a ser a nova referência para o
+      cálculo da janela de recompra e monitoramento do cliente.</p>
+
+      <h3>Registro do resultado</h3>
+      <ul>
+        <li>Recompra efetivada dentro da janela → cliente permanece Ativo, janela recalculada;</li>
+        <li>Sem resposta à abordagem/automação → cliente segue em acompanhamento até 180 dias; ao
+        atingir esse marco, transferir para a Jornada de Reativação B2B;</li>
+        <li>Nenhuma automação ou abordagem sem registro no sistema correspondente (Mercos para ação
+        comercial, RD Marketing para automação).</li>
+      </ul>
+
+      <h3>Indicadores</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Indicador</th><th>Objetivo</th></tr></thead>
+        <tbody>
+          <tr><td>Taxa de recompra dentro da janela</td><td>Medir eficiência da jornada preventiva</td></tr>
+          <tr><td>Clientes em Atenção recuperados</td><td>Medir efetividade das ações de recompra</td></tr>
+          <tr><td>Conversão das automações B e C</td><td>Avaliar performance das automações</td></tr>
+          <tr><td>Tempo médio até recompra</td><td>Avaliar velocidade de recuperação</td></tr>
+          <tr><td>Clientes migrados para Churn</td><td>Medir perdas da jornada de recompra</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 7. REPRESENTANTES -->
+    <section id="representantes">
+      <p class="kicker">07 — COM-07</p>
+      <h2 class="h-section">Gestão de representantes e distribuidores</h2>
+      <p class="h-sub">Modelo único e rastreável para gerir representantes comerciais, distribuidores e
+      executivos externos — carteira, território, titularidade, conflitos, rotinas e indicadores.</p>
+
+      <h3>Princípios operacionais</h3>
+      <div class="tbl-wrap"><table>
+        <tbody>
+          <tr><th>Registro prevalece</th><td>Atividade sem evidência no sistema oficial não renova titularidade nem sustenta disputa de carteira.</td></tr>
+          <tr><th>Cliente em movimento</th><td>Nenhum cliente deve permanecer indefinidamente atribuído sem atendimento efetivo e próxima ação.</td></tr>
+          <tr><th>Uma responsabilidade clara</th><td>Cada cliente possui um responsável principal identificável, mesmo com áreas de apoio.</td></tr>
+          <tr><th>Exceção rastreável</th><td>Toda exceção territorial, comercial ou de carteira exige justificativa, aprovador e data de revisão.</td></tr>
+          <tr><th>Dados mínimos</th><td>CNPJ, região, canal, responsável, última atividade, última compra e próxima ação são obrigatórios.</td></tr>
+          <tr><th>Qualidade sobre quantidade</th><td>Qualidade da atividade prevalece sobre quantidade de registros.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Regra dos 90 dias</h3>
+      <div class="tbl-wrap"><table>
+        <tbody>
+          <tr><th>Início da contagem</th><td>Data da última atividade válida registrada no sistema oficial.</td></tr>
+          <tr><th>Manutenção da titularidade</th><td>O cliente permanece atribuído ao responsável por até 90 dias sem nova atividade válida.</td></tr>
+          <tr><th>Após 90 dias</th><td>É gatilho de revisão, não transferência automática — a decisão considera critérios objetivos.</td></tr>
+          <tr><th>Atividade válida</th><td>Contato efetivo com resultado, visita, proposta, negociação, pedido ou ação comercial comprovável com próxima ação.</td></tr>
+          <tr><th>Não renova titularidade</th><td>Tentativa sem evidência, anotação genérica, contato sem resultado ou alteração cadastral sem ação comercial.</td></tr>
+          <tr><th>Exceção</th><td>Somente com justificativa, prazo de validade, aprovador e data de revisão.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h4>SLA de reação (revisão e redistribuição)</h4>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Prazo</th><th>Ação</th></tr></thead>
+        <tbody>
+          <tr><td>60 dias sem atividade</td><td>Alerta preventivo ao responsável</td></tr>
+          <tr><td>75 dias sem atividade</td><td>Plano de ação obrigatório, registrado pelo responsável</td></tr>
+          <tr><td>90 dias sem atividade</td><td>Revisão formal pela gestão comercial</td></tr>
+          <tr><td>+5 dias após a revisão</td><td>Decisão: manter, redistribuir ou enviar para reativação</td></tr>
+          <tr><td>+10 dias após a decisão</td><td>Transferência efetivada, se aplicável, com aceite do novo responsável</td></tr>
+        </tbody>
+      </table></div>
+      <p>Conflitos sobem a <b>Brino</b>; decisões estratégicas ou excepcionais sobem a
+      <b>Frederico</b>. O novo responsável aceita a carteira e registra primeira ação e prazo.</p>
+
+      <h3>Papéis e modelo de atuação</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Papel</th><th>Modelo de atuação</th><th>Regra central</th></tr></thead>
+        <tbody>
+          <tr><td>Representante comercial</td><td>Atuação externa sem limitação geográfica obrigatória</td><td>Titularidade por atividade válida; revisão após 90 dias</td></tr>
+          <tr><td>Executivo de negócios externo</td><td>Atuação nas regiões predefinidas pela Porã</td><td>Respeita território e a mesma janela de 90 dias</td></tr>
+          <tr><td>Distribuidor</td><td>Parceiro para capilaridade por região/canal</td><td>Cobertura, metas, capacidade e limites formalizados antes da ativação</td></tr>
+          <tr><td>Gestão comercial</td><td>Governança da carteira, metas, conflitos e planos de ação</td><td>Decide no limite da sua alçada e escala quando necessário</td></tr>
+          <tr><td>Trade Marketing</td><td>Execução e desenvolvimento do PDV</td><td>Aprova e executa campanhas, ativações e MPDV</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Qualificação de distribuidores</h3>
+      <p>Ativação somente após filtro comercial e apresentação à diretoria, com racional, território/canal,
+      metas e riscos registrados.</p>
+      <h4>Scorecard do distribuidor</h4>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Dimensão</th><th>Peso</th></tr></thead>
+        <tbody>
+          <tr><td>Potencial de mercado</td><td>20%</td></tr>
+          <tr><td>Cobertura</td><td>20%</td></tr>
+          <tr><td>Capacidade comercial</td><td>15%</td></tr>
+          <tr><td>Capacidade operacional</td><td>15%</td></tr>
+          <tr><td>Sell-out</td><td>10%</td></tr>
+          <tr><td>Saúde financeira</td><td>10%</td></tr>
+          <tr><td>Governança</td><td>10%</td></tr>
+        </tbody>
+      </table></div>
+      <p>A pontuação classifica o distribuidor em <b>A / B / C / Não aprovado</b>. Cobertura considera:
+      clientes ativos, PDVs, distribuição numérica e ponderada, presença por canal/região/categoria e
+      presença de lançamentos.</p>
+
+      <h3>Conflitos e transferências</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Situação</th><th>Tratamento</th><th>Aprovação/registro</th></tr></thead>
+        <tbody>
+          <tr><td>Dois representantes no mesmo cliente</td><td>Verificar atividade válida mais recente, histórico e janela de 90 dias</td><td>Gestão comercial; escalar dúvida a Brino</td></tr>
+          <tr><td>Representante × executivo</td><td>Preservar titularidade válida e território; decidir exceção com prazo</td><td>Brino; Frederico se estratégica</td></tr>
+          <tr><td>Cliente em área de distribuidor</td><td>Aplicar acordo territorial/canal e avaliar relação preexistente</td><td>Gestão + diretoria conforme impacto</td></tr>
+          <tr><td>Cliente acima de 90 dias</td><td>Elegível a redistribuição ou reativação priorizada</td><td>Gestão comercial; registrar motivo</td></tr>
+          <tr><td>Cliente nacional/multifiliais</td><td>Definir conta-mãe, filiais, responsável principal e apoio regional</td><td>Brino; registrar estrutura da conta</td></tr>
+          <tr><td>Saída/afastamento</td><td>Transferir carteira, preservar histórico, criar plano de contato prioritário</td><td>Gestão; aceite do novo responsável</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Rotina de gestão comercial + Trade Marketing</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Ritual</th><th>Frequência</th><th>Participantes</th><th>Pauta e saída obrigatória</th></tr></thead>
+        <tbody>
+          <tr><td>Controle operacional</td><td>Semanal</td><td>Gestão + responsáveis de campo</td><td>Pedidos, clientes 60/75/90 dias, oportunidades, bloqueios; ações com dono e prazo</td></tr>
+          <tr><td>Pipeline e carteira</td><td>Semanal</td><td>Comercial + Marketing (quando aplicável)</td><td>Cobertura, próximas ações, reativação, conflitos; pipeline atualizado</td></tr>
+          <tr><td>Performance</td><td>Mensal</td><td>Gestão + representantes/executivos</td><td>Meta, faturamento, margem, positivação, mix, recompra, inadimplência; plano de ação</td></tr>
+          <tr><td>Revisão Comercial + Trade</td><td>Mensal ou bimestral</td><td>Gestão, Trade Marketing e representantes</td><td>Cobertura, sell-in/sell-out, mix, lançamentos, execução, materiais, ruptura; plano de ação</td></tr>
+          <tr><td>Revisão de distribuidores</td><td>Trimestral</td><td>Gestão, Trade, Financeiro e distribuidor</td><td>Cobertura, estoque, sell-in/sell-out, metas, riscos, decisão de continuidade</td></tr>
+          <tr><td>Revisão territorial</td><td>Trimestral</td><td>Gestão + liderança</td><td>Regiões descobertas, sobreposições, potencial, redistribuições aprovadas</td></tr>
+          <tr><td>Revisão do modelo</td><td>Semestral</td><td>Henrique, Brino, áreas-chave</td><td>Ajustes de regras, indicadores e governança; nova versão documentada</td></tr>
+        </tbody>
+      </table></div>
+      <p style="font-size:0.9rem; color:var(--ink-soft);"><b>Padrão de registro das reuniões:</b> data e
+      participantes; indicadores analisados e período; decisões e aprovador; ações, responsáveis e prazos;
+      conflitos e exceções; link da evidência/ata.</p>
+
+      <h3>Dicionário de indicadores (3 blocos)</h3>
+      <h4>Bloco Resultado</h4>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Indicador</th><th>Fórmula/definição</th><th>Fonte</th><th>Freq.</th></tr></thead>
+        <tbody>
+          <tr><td>Faturamento</td><td>Soma da receita líquida</td><td>Mercos/Bling</td><td>Mensal</td></tr>
+          <tr><td>Margem</td><td>Conforme regra financeira oficial</td><td>Bling/Financeiro</td><td>Mensal</td></tr>
+          <tr><td>Atingimento da meta</td><td>Realizado ÷ meta</td><td>Painel oficial</td><td>Mensal</td></tr>
+          <tr><td>Ticket médio</td><td>Faturamento ÷ pedidos</td><td>Bling/Mercos</td><td>Mensal</td></tr>
+          <tr><td>Taxa de recompra</td><td>Elegíveis que recompraram ÷ elegíveis</td><td>Bling/Mercos</td><td>Mensal</td></tr>
+        </tbody>
+      </table></div>
+      <h4>Bloco Desenvolvimento da Carteira</h4>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Indicador</th><th>Fórmula/definição</th><th>Fonte</th><th>Freq.</th></tr></thead>
+        <tbody>
+          <tr><td>Novos clientes</td><td>Clientes com primeiro pedido</td><td>Bling/Mercos</td><td>Mensal</td></tr>
+          <tr><td>Reativados</td><td>Inativos que voltaram a comprar</td><td>Bling/Mercos</td><td>Mensal</td></tr>
+          <tr><td>Positivação</td><td>Clientes com pedido no período</td><td>Mercos/Bling</td><td>Mensal</td></tr>
+          <tr><td>Mix médio</td><td>SKUs distintos por pedido</td><td>Bling/Mercos</td><td>Mensal</td></tr>
+          <tr><td>Conversão</td><td>Pedidos ÷ oportunidades trabalhadas (lead recebido → prospect → negociação → proposta → oportunidade no RD)</td><td>Mercos/RD</td><td>Mensal</td></tr>
+          <tr><td>Cobertura da carteira</td><td>Clientes trabalhados ÷ atribuídos (trabalhado = atividade válida + resultado + próxima ação)</td><td>Mercos</td><td>Semanal</td></tr>
+        </tbody>
+      </table></div>
+      <h4>Bloco Execução / Trade</h4>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Indicador</th><th>Fórmula/definição</th><th>Fonte</th><th>Freq.</th></tr></thead>
+        <tbody>
+          <tr><td>Cobertura numérica</td><td>PDVs ativos ÷ PDVs potenciais</td><td>Mercos/Cortex</td><td>Mensal</td></tr>
+          <tr><td>Distribuição</td><td>PDVs com presença do SKU/categoria ÷ PDVs elegíveis</td><td>Mercos</td><td>Mensal</td></tr>
+          <tr><td>Mix estratégico</td><td>SKUs estratégicos presentes por cliente</td><td>Mercos</td><td>Mensal</td></tr>
+          <tr><td>Penetração de lançamentos</td><td>Clientes que compraram lançamento ÷ elegíveis</td><td>Mercos</td><td>Mensal</td></tr>
+          <tr><td>Execução</td><td>PDVs com execução conforme padrão ÷ PDVs auditados</td><td>Auditoria de campo</td><td>Mensal</td></tr>
+          <tr><td>Disponibilidade de materiais</td><td>MPDV presente ÷ esperado</td><td>Auditoria de campo</td><td>Mensal</td></tr>
+          <tr><td>Sell-out</td><td>Quando houver informação do distribuidor</td><td>Distribuidor</td><td>Mensal</td></tr>
+          <tr><td>Ruptura</td><td>PDVs com ruptura de produtos prioritários</td><td>Auditoria de campo</td><td>Mensal</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Tratamento de desvios</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Desvio</th><th>Ação mínima</th><th>Escalonamento</th></tr></thead>
+        <tbody>
+          <tr><td>Cliente sem atividade</td><td>Definir contato e prazo; aos 90 dias avaliar redistribuição</td><td>Gestão comercial</td></tr>
+          <tr><td>Registro incompleto</td><td>Corrigir dados antes de renovar titularidade</td><td>Gestão / administrador Mercos</td></tr>
+          <tr><td>Meta não atingida</td><td>Diagnóstico e plano de ação de 30 dias</td><td>Brino; Frederico se recorrente</td></tr>
+          <tr><td>Baixa cobertura</td><td>Repriorizar carteira, rota e frequência</td><td>Gestão + Trade</td></tr>
+          <tr><td>Inadimplência elevada</td><td>Bloqueio/análise conforme Política de Crédito</td><td>Financeiro + Brino</td></tr>
+          <tr><td>Conflito territorial</td><td>Aplicar regra, evidências e decisão com validade</td><td>Brino / Frederico</td></tr>
+          <tr><td>Distribuidor sem execução</td><td>Plano corretivo, revisão de território ou descontinuação</td><td>Diretoria</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout amber"><p><span class="badge pending">Pendente</span> As faixas de severidade
+      (leve / moderado / crítico) por indicador ainda serão definidas pela liderança/diretoria antes da
+      implantação operacional.</p></div>
+    </section>
+
+    <!-- 8. ALÇADAS -->
+    <section id="alcadas">
+      <p class="kicker">08 — COM-09</p>
+      <h2 class="h-section">Política comercial padrão e matriz de alçadas</h2>
+      <p class="h-sub">Os 4 parâmetros abaixo são o limite de operação padrão — sem exceção — e não
+      exigem aprovação de ninguém quando respeitados.</p>
+
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Parâmetro</th><th>Regra padrão</th></tr></thead>
+        <tbody>
+          <tr><td>Frete</td><td>FOB, pago pelo cliente</td></tr>
+          <tr><td>Prazo de pagamento</td><td>30 / 45 / 60 dias</td></tr>
+          <tr><td>Desconto à vista</td><td>5% fixo</td></tr>
+          <tr><td>Desconto no prazo</td><td>Até 10%, exclusivamente para pedidos acima de R$ 25 mil</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Matriz de alçadas — desvios do padrão</h3>
+      <p>Qualquer condição fora dos parâmetros acima passa obrigatoriamente pela alçada abaixo.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Tipo de exceção</th><th>Faixa 1</th><th>Faixa 2</th></tr></thead>
+        <tbody>
+          <tr><td>Desconto fora do padrão</td><td>Brino</td><td>Frederico, se virar exceção estratégica, gerar precedente ou impacto relevante de margem</td></tr>
+          <tr><td>Prazo diferente de 30/45/60 dias</td><td>Brino</td><td>Frederico, se estratégica ou precedente</td></tr>
+          <tr><td>Frete subsidiado (fora do FOB)</td><td>Brino</td><td>Frederico, se estratégica ou precedente</td></tr>
+          <tr><td>Bonificação / amostras</td><td>Brino</td><td>Frederico, se combinação de exceções ou impacto relevante</td></tr>
+          <tr><td>Pedido abaixo do mínimo</td><td>Brino</td><td>Frederico, se estratégica ou precedente</td></tr>
+          <tr><td>Margem abaixo do piso</td><td>Brino (avaliação geral)</td><td>Frederico, sempre que houver impacto relevante de margem</td></tr>
+          <tr><td>Condição especial / alteração de política</td><td>Brino (1ª instância)</td><td>Frederico (2ª instância, decisão explícita dele)</td></tr>
+          <tr><td>Exceção territorial / conflito de titularidade</td><td>Brino (até 3 dias úteis)</td><td>Frederico se não resolvido</td></tr>
+          <tr><td>Crédito</td><td>Financeiro (padrão) → Brino em exceção</td><td>Frederico, quando julgar necessário escalar</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout brick"><p><b>Registro obrigatório:</b> toda exceção deve ficar registrada no
+      sistema com motivo e aprovador — isso é uma exigência formal do projeto, não uma recomendação.</p></div>
+    </section>
+
+    <!-- 9. MERCOS -->
+    <section id="mercos">
+      <p class="kicker">09 — SYS-11</p>
+      <h2 class="h-section">Regras comerciais no Mercos</h2>
+      <p class="h-sub"><span class="badge pending">Estrutura montada</span> Configuração alinhada à
+      política comercial; valores finais de alçada e resultado dos testes ainda pendentes de
+      preenchimento pelo Frederico (via COM-09).</p>
+
+      <h3>Tabelas de preço por canal</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Canal</th><th>Comissão</th><th>Pedido mínimo</th><th>Configurado no Mercos?</th></tr></thead>
+        <tbody>
+          <tr><td>Distribuidor</td><td>5%</td><td>1º pedido R$ 50.000 / recorrente R$ 25.000</td><td><span class="badge pending">Frederico confirma — ver COM-09</span></td></tr>
+          <tr><td>Atacado</td><td>6%</td><td>R$ 1.500</td><td><span class="badge pending">Frederico confirma — ver COM-09</span></td></tr>
+          <tr><td>Atacadinho</td><td>8%</td><td>R$ 1.000</td><td><span class="badge pending">Frederico confirma — ver COM-09</span></td></tr>
+          <tr><td>Varejo</td><td>10%</td><td>R$ 600</td><td><span class="badge pending">Frederico confirma — ver COM-09</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout brick"><p><b>Limitação técnica conhecida:</b> o desconto B2B não é processado
+      no Mercos — é inserido manualmente no Bling após a importação do pedido, pois o Mercos não exporta
+      esse campo. Uma correção definitiva (Mercos processar desconto nativamente) fica registrada como
+      melhoria futura, fora do escopo desta v1.</p></div>
+
+      <h3>Alçadas de aprovação</h3>
+      <p><span class="badge pending">Aguardando preenchimento do Frederico</span> A estrutura da Matriz
+      de Alçadas (Faixa 1 = Brino decide sozinho / Faixa 2 = precisa do Frederico) está replicada no
+      sistema, mas os valores numéricos de corte ainda aguardam confirmação — ver seção 8 deste manual.</p>
+
+      <h3>Cenários de teste</h3>
+      <p>5 cenários estão definidos para validação da configuração — pedido dentro do padrão (aprovação
+      automática), pedido com desconto na Faixa 1, pedido com desconto acima da Faixa 2, pedido abaixo do
+      mínimo do canal e pedido com prazo de pagamento especial. Todos estão marcados
+      <span class="badge pending">a testar</span>, aguardando os valores de alçada.</p>
+
+      <h3>Pendências para fechamento</h3>
+      <ol>
+        <li>Frederico preenche os valores de alçada no COM-09;</li>
+        <li>Confirmar se os valores de comissão/pedido mínimo do COM-08 são os vigentes (há divergência
+        já reportada ao Financeiro);</li>
+        <li>Bassani configura as alçadas no Mercos com os valores confirmados;</li>
+        <li>Executar os 5 cenários de teste e preencher a coluna "Resultado do Teste";</li>
+        <li>Aprovar formalmente com Bassani + Bruno.</li>
+      </ol>
+    </section>
+
+    <!-- 10. KPIS -->
+    <section id="kpis" class="wide">
+      <p class="kicker">10 — PERF-01</p>
+      <h2 class="h-section">Indicadores (KPIs)</h2>
+      <p class="h-sub">Dicionário completo de indicadores por categoria, com fórmula e observações. Itens
+      marcados <span class="badge pending">em definição</span> ainda dependem de ajuste de fonte/sistema.</p>
+
+      <h3>KPIs Core B2B</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Indicador</th><th>Fórmula</th><th>Unidade</th></tr></thead>
+        <tbody>
+          <tr><td>Faturamento bruto/líquido</td><td>Bruto = soma de todos os pedidos. Líquido = bruto − (imposto + devoluções + abatimentos + descontos)</td><td>R$</td></tr>
+          <tr><td>Margem de contribuição</td><td>(Receita líquida − custos variáveis − despesas variáveis) ÷ receita líquida × 100</td><td>%</td></tr>
+          <tr><td>Pedidos</td><td>Quantidade total de pedidos por cliente</td><td>Numérico</td></tr>
+          <tr><td>Clientes ativos</td><td>Clientes que compraram no período</td><td>Texto</td></tr>
+          <tr><td>Clientes novos</td><td>Primeira compra no período</td><td>Texto</td></tr>
+          <tr><td>Clientes reativados</td><td>Não compraram no mês anterior e compraram no atual</td><td>Texto</td></tr>
+          <tr><td>Ticket médio</td><td>Receita total ÷ quantidade de pedidos</td><td>R$</td></tr>
+          <tr><td>Frequência de compra</td><td>Total de pedidos ÷ total de clientes ativos</td><td>Numérico</td></tr>
+          <tr><td>Taxa de recompra</td><td>Clientes que compraram mais de 1 vez ÷ total de clientes × 100</td><td>%</td></tr>
+          <tr><td>Mix médio por cliente</td><td>Itens vendidos ÷ pedidos</td><td>Numérico</td></tr>
+          <tr><td>Receita por vendedor / representante / região / canal</td><td>Valor total da compra segmentado</td><td>R$</td></tr>
+          <tr><td>Positivação</td><td><span class="badge pending">em definição</span> status anterior do cliente (Novo/Ativo/Inativo) ou contatos totais ÷ vendas concretizadas</td><td>Texto/Numérico</td></tr>
+          <tr><td>Churn/inatividade</td><td>Clientes sem compra a partir de 180 dias</td><td>%</td></tr>
+          <tr><td>Prazo médio entre pedidos</td><td>Soma dos dias entre pedidos ÷ total de recompras</td><td>Numérico</td></tr>
+          <tr><td>Cobertura de carteira</td><td>Clientes que compraram no período ÷ clientes da carteira × 100</td><td>%</td></tr>
+          <tr><td>Conversão de oportunidades</td><td>Oportunidades convertidas ÷ oportunidades trabalhadas × 100</td><td>%</td></tr>
+          <tr><td>Ciclo de venda</td><td>Data de fechamento − data de criação da oportunidade</td><td>Numérico</td></tr>
+          <tr><td>Forecast</td><td>Soma do valor das oportunidades com previsão de fechamento no período</td><td>R$</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>KPIs Marketing B2B</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Indicador</th><th>Objetivo</th><th>Fonte</th><th>Freq.</th><th>Observação</th></tr></thead>
+        <tbody>
+          <tr><td>Leads/prospects gerados</td><td>Medir novos leads/prospects gerados</td><td>RD Marketing</td><td>Semanal</td><td>—</td></tr>
+          <tr><td>Origem</td><td>% de canais que mais atraem leads</td><td>RD Marketing</td><td>Semanal</td><td><span class="badge pending">~70% da base sem origem identificada</span></td></tr>
+          <tr><td>Leads qualificados</td><td>% de leads qualificados</td><td>RD Marketing</td><td>Semanal</td><td><span class="badge pending">Lead Scoring ainda não configurado</span></td></tr>
+          <tr><td>Oportunidades geradas</td><td>Quantidade de oportunidades geradas</td><td>RD Marketing/Conversas</td><td>Semanal</td><td>—</td></tr>
+          <tr><td>Taxa de aceite comercial</td><td>Oportunidades aceitas ÷ recebidas</td><td>RD Marketing (cálculo manual)</td><td>Mensal</td><td><span class="badge pending">falta local que exiba oportunidades aceitas</span></td></tr>
+          <tr><td>Tempo de resposta</td><td>Agilidade do atendimento interno</td><td>RD Conversas</td><td>Mensal</td><td><span class="badge pending">RD Conversas ainda não implementada por completo</span></td></tr>
+          <tr><td>Taxa de contato</td><td>% de leads contatados</td><td>RD Conversas</td><td>Mensal</td><td><span class="badge pending">idem acima</span></td></tr>
+          <tr><td>Conversão por origem/campanha</td><td>Conversões ÷ visitas por origem</td><td>RD Marketing</td><td>Semanal</td><td><span class="badge pending">maioria das conversões sem origem identificada</span></td></tr>
+          <tr><td>Receita atribuída ao marketing</td><td>Receita das oportunidades atribuídas ao marketing</td><td>RD Marketing (cálculo manual)</td><td>Mensal</td><td><span class="badge pending">sem registro de vínculo receita↔oportunidade hoje</span></td></tr>
+          <tr><td>Custo por lead/oportunidade</td><td>Investimento total ÷ leads/oportunidades gerados</td><td>Meta Lead Ads</td><td>Mensal</td><td><span class="badge pending">só se aplica a leads de mídia paga</span></td></tr>
+          <tr><td>Reativações geradas</td><td>% de clientes inativos que voltaram a comprar</td><td>Mercos</td><td>Mensal</td><td><span class="badge pending">separar inativação por tempo vs. manual</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>KPIs B2C (e-commerce)</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Indicador</th><th>Fórmula</th><th>Fonte</th><th>Observação</th></tr></thead>
+        <tbody>
+          <tr><td>Sessões</td><td>Soma de sessões/acessos</td><td>Shopify/GA</td><td>—</td></tr>
+          <tr><td>Usuários</td><td>Soma de usuários no período</td><td>Google Analytics</td><td>—</td></tr>
+          <tr><td>Conversão</td><td>Sessões com compra ÷ sessões totais × 100</td><td>Shopify</td><td>—</td></tr>
+          <tr><td>Pedidos</td><td>Soma dos pedidos realizados</td><td>Shopify/Bling</td><td><span class="badge pending">divergência de filtros entre Shopify e Bling</span></td></tr>
+          <tr><td>Receita</td><td>Bruta e líquida (impostos, devoluções, descontos, abatimentos)</td><td>Shopify/Bling</td><td><span class="badge pending">divergência entre as duas fontes</span></td></tr>
+          <tr><td>Ticket médio</td><td>Receita ÷ pedidos (bruto e líquido)</td><td>Shopify/Bling</td><td><span class="badge pending">local do cálculo não padronizado entre plataformas</span></td></tr>
+          <tr><td>CAC</td><td>(Investimento marketing + vendas) ÷ novos clientes</td><td>Meta Ads</td><td><span class="badge pending">avaliar suficiência do dado do Meta Ads</span></td></tr>
+          <tr><td>ROAS</td><td>Receita atribuída à publicidade ÷ investimento</td><td>Meta Ads</td><td><span class="badge pending">sem histórico de investimento recente</span></td></tr>
+          <tr><td>Abandono de carrinho</td><td>Carrinhos abandonados (nº ou %)</td><td>Shopify</td><td>—</td></tr>
+          <tr><td>Receita recuperada</td><td>Receita de carrinhos abandonados recuperados</td><td>Shopify</td><td><span class="badge pending">não disponível nos relatórios atuais</span></td></tr>
+          <tr><td>Recompra</td><td>Clientes com +1 compra ÷ total de clientes × 100</td><td>Shopify</td><td>—</td></tr>
+          <tr><td>Retenção</td><td>Clientes mantidos ÷ base inicial × 100</td><td>Shopify</td><td>—</td></tr>
+          <tr><td>LTV</td><td>Ticket médio × frequência × tempo médio de relacionamento</td><td>Shopify + Bling (manual)</td><td><span class="badge pending">sem relatório nativo</span></td></tr>
+          <tr><td>Margem de contribuição por pedido</td><td>(Receita líquida − custos − despesas variáveis) ÷ receita líquida</td><td>Shopify</td><td><span class="badge pending">requer campo "Cost per item" cadastrado em todos SKUs</span></td></tr>
+          <tr><td>Custo logístico unitário</td><td>Custo logístico total ÷ pedidos entregues</td><td>Melhor Envio + Shopify</td><td>—</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>KPIs Cortex / Cobertura</h3>
+      <p style="font-size:0.9rem; color:var(--ink-soft);">Fonte, sistema, responsável e frequência
+      ainda não definidos para este bloco.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Indicador</th><th>Fórmula/definição</th></tr></thead>
+        <tbody>
+          <tr><td>Oportunidades recebidas</td><td>Quantidade total recebida pelo vendedor/equipe</td></tr>
+          <tr><td>Novos PDVs recomendados</td><td>Quantidade de novos PDVs identificados/recomendados</td></tr>
+          <tr><td>Oportunidades trabalhadas</td><td>Quantidade que recebeu ação comercial</td></tr>
+          <tr><td>Taxa de engajamento do vendedor</td><td>Oportunidades trabalhadas ÷ recebidas × 100</td></tr>
+          <tr><td>Visitas/agendamentos</td><td>Total de visitas ou reuniões agendadas/realizadas</td></tr>
+          <tr><td>PDVs positivados</td><td>PDVs que compraram após ação comercial</td></tr>
+          <tr><td>Conversão por tipo de oportunidade</td><td>Convertidas ÷ trabalhadas do tipo × 100</td></tr>
+          <tr><td>Cross-sell / Up-sell capturado</td><td>Receita de produtos complementares / incremento por aumento de valor</td></tr>
+          <tr><td>Potencial capturado</td><td>Valor realizado ÷ potencial estimado × 100</td></tr>
+          <tr><td>Performance por território/vendedor</td><td><span class="badge pending">dúvidas sobre a entrega deste tópico</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>KPIs Trade</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Indicador</th><th>Fórmula/definição</th></tr></thead>
+        <tbody>
+          <tr><td>PDVs ativados</td><td>PDVs com primeira compra no período</td></tr>
+          <tr><td>Materiais implantados</td><td>Materiais comerciais implantados nos PDVs</td></tr>
+          <tr><td>Cobertura</td><td>PDVs atendidos ÷ PDVs da carteira × 100</td></tr>
+          <tr><td>Execução conforme padrão</td><td>PDVs em conformidade ÷ PDVs avaliados × 100 <span class="badge pending">fórmula em revisão</span></td></tr>
+          <tr><td>Sell-out</td><td>Valor/quantidade vendida pelo PDV ao consumidor final, quando disponível</td></tr>
+          <tr><td>Giro por PDV</td><td>Quantidade/valor vendido ÷ estoque médio do PDV</td></tr>
+          <tr><td>Performance de lançamento</td><td>Vendas dos lançamentos ÷ meta ou potencial estimado × 100</td></tr>
+          <tr><td>Ruptura/indisponibilidade reportada</td><td>Ocorrências registradas no período</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>KPIs Qualidade de Dados</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Indicador</th><th>Fórmula/definição</th></tr></thead>
+        <tbody>
+          <tr><td>% de clientes com CNPJ/identificador válido</td><td>Clientes com identificador válido ÷ cadastrados × 100</td></tr>
+          <tr><td>% de oportunidades com origem</td><td>Com origem preenchida ÷ total × 100</td></tr>
+          <tr><td>% de perdas com motivo padronizado</td><td>Perdidas com motivo padronizado ÷ total de perdas × 100</td></tr>
+          <tr><td>% de SKUs com status validado</td><td>SKUs validados ÷ total de SKUs × 100</td></tr>
+          <tr><td>Divergências abertas de catálogo</td><td>Quantidade ainda não solucionada</td></tr>
+          <tr><td>Tempo de atualização de dados</td><td>Data/hora da última atualização − anterior</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 11. PAPÉIS -->
+    <section id="papeis">
+      <p class="kicker">11 — CONSOLIDADO</p>
+      <h2 class="h-section">Papéis, responsáveis e escalonamento</h2>
+      <p class="h-sub">Quem decide o quê, consolidado a partir de todos os documentos deste manual.</p>
+
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Pessoa / papel</th><th>Frente</th></tr></thead>
+        <tbody>
+          <tr><td><b>Brino</b></td><td>1ª alçada em desconto, prazo, frete, bonificação, pedido mínimo, margem, condição especial, exceção territorial e crédito; carteira e conflitos; dono do processo de motivos de perda</td></tr>
+          <tr><td><b>Frederico Hanczaryk</b></td><td>2ª alçada — exceções estratégicas, precedentes ou impacto relevante de margem; diretriz estratégica; preenchimento dos valores de alçada no Mercos (COM-09/SYS-11)</td></tr>
+          <tr><td><b>Henrique Pereira Santos</b></td><td>Aplicabilidade operacional/campo/Trade; aprovação do modelo de representantes junto à gerência do projeto</td></tr>
+          <tr><td><b>Miriã</b></td><td>Proprietária das regras de SLA Marketing×Comercial; automações de recompra (categorias B e C) na RD Marketing</td></tr>
+          <tr><td><b>Gabriel Bassani</b></td><td>Dúvidas técnicas de sistema (Mercos/RD); configuração de alçadas no Mercos; sincronização de categoria de carteira Mercos ↔ RD Station; proprietário do indicador de venda no BI</td></tr>
+          <tr><td><b>Guilherme Dias</b></td><td>Sincronização de categoria de carteira Mercos ↔ RD Station</td></tr>
+          <tr><td><b>Bruno Almeida</b></td><td>Aprovação formal da configuração de regras comerciais no Mercos</td></tr>
+          <tr><td><b>Vitória Oliveira</b></td><td>Implantação do modelo de representantes/distribuidores; corresponsável pela taxonomia de motivos de perda</td></tr>
+          <tr><td><b>Victor Hugo</b></td><td>QA e Processos — auditoria amostral dos motivos de perda</td></tr>
+          <tr><td><b>Financeiro</b></td><td>Crédito, inadimplência, limite e condições de pagamento — representante não decide crédito</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 12. PENDÊNCIAS -->
+    <section id="pendencias">
+      <p class="kicker">12 — CONSOLIDADO</p>
+      <h2 class="h-section">Pendências abertas e itens em validação</h2>
+      <p class="h-sub">Itens sinalizados como incompletos, em decisão de negócio ou aguardando
+      configuração técnica nos documentos-fonte. Útil para acompanhamento em reunião de rotina.</p>
+
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Item</th><th>Frente</th><th>Aguarda</th></tr></thead>
+        <tbody>
+          <tr><td>Tempo de aceite comercial (1h lead quente / 4h padrão)</td><td>SLA Marketing×Comercial</td><td>Validação de negócio</td></tr>
+          <tr><td>Regra de "sem contato" (3 tentativas em 72h)</td><td>SLA Marketing×Comercial</td><td>Validação de negócio</td></tr>
+          <tr><td>Valores de comissão e pedido mínimo por canal no Mercos</td><td>Regras Mercos</td><td>Confirmação do Frederico (COM-09)</td></tr>
+          <tr><td>5 cenários de teste de alçada no Mercos</td><td>Regras Mercos</td><td>Execução após valores confirmados</td></tr>
+          <tr><td>Divergência de comissão/pedido mínimo entre COM-08 e o vigente</td><td>Regras Mercos</td><td>Confirmação do Financeiro</td></tr>
+          <tr><td>Faixas de severidade de desvio (leve/moderado/crítico) por indicador</td><td>Gestão de representantes</td><td>Definição da liderança/diretoria</td></tr>
+          <tr><td>Metas numéricas dos indicadores de carteira</td><td>Gestão de representantes</td><td>Preenchimento pela liderança</td></tr>
+          <tr><td>Validação final do modelo COM-07 (feedback de campo já incorporado)</td><td>Gestão de representantes</td><td>Nova validação de Henrique</td></tr>
+          <tr><td>~70% da base de leads sem origem identificada</td><td>KPI Marketing — Origem</td><td>Correção de cadastro na RD Station</td></tr>
+          <tr><td>Lead Scoring não configurado</td><td>KPI Marketing — Leads qualificados</td><td>Configuração na RD Station</td></tr>
+          <tr><td>RD Station Conversas não totalmente implementada</td><td>KPI Marketing — Tempo/Taxa de contato</td><td>Conclusão da implantação</td></tr>
+          <tr><td>Divergência de pedidos e receita entre Shopify e Bling</td><td>KPI B2C</td><td>Revisão da integração</td></tr>
+          <tr><td>Campo "Cost per item" ausente nos SKUs da Shopify</td><td>KPI B2C — Margem por pedido</td><td>Cadastro no catálogo</td></tr>
+          <tr><td>Fonte/sistema/responsável não definidos</td><td>KPIs Cortex/Cobertura</td><td>Definição de arquitetura de dados</td></tr>
+          <tr><td>Fórmula de "Execução conforme padrão" em revisão</td><td>KPIs Trade</td><td>Esclarecimento conceitual</td></tr>
+          <tr><td>Fórmula de Positivação (status vs. contatos/vendas)</td><td>KPI Core B2B</td><td>Decisão de qual definição adotar</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 13. GLOSSÁRIO -->
+    <section id="glossario">
+      <p class="kicker">13 — REFERÊNCIA</p>
+      <h2 class="h-section">Glossário</h2>
+      <p class="h-sub">Termos operacionais e correspondência com os códigos internos do projeto — útil
+      para localizar a documentação completa por trás de cada processo.</p>
+
+      <dl class="glossary">
+        <dt>Varejo / Atacado / Atacadinho</dt><dd>Ver definições na seção 1 — Visão geral do modelo.</dd>
+        <dt>Titularidade</dt><dd>Direito de um representante/executivo sobre o atendimento de um cliente, mantido por até 90 dias sem nova atividade válida.</dd>
+        <dt>Janela de recompra</dt><dd>Período estimado entre uma compra e a próxima, calculado por histórico de consumo, frequência e mix.</dd>
+        <dt>Positivação</dt><dd>Indicador de conversão de contato em venda efetiva — definição exata ainda em aberto (ver Pendências).</dd>
+        <dt>ICP</dt><dd>Perfil de cliente ideal usado como critério de qualificação de leads.</dd>
+        <dt>MPDV</dt><dd>Material de ponto de venda usado em ações de Trade Marketing.</dd>
+      </dl>
+
+      <h3>Correspondência entre termo do playbook e código interno</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Termo usado no dia a dia</th><th>Código interno do projeto</th></tr></thead>
+        <tbody>
+          <tr><td>Política Comercial Padrão / Matriz de Alçadas</td><td><span class="code">COM-09</span></td></tr>
+          <tr><td>Comissão Oficial</td><td><span class="code">COM-10</span></td></tr>
+          <tr><td>Jornada de Recompra</td><td><span class="code">COM-11</span></td></tr>
+          <tr><td>Motivos de Perda</td><td><span class="code">PROC-03</span></td></tr>
+          <tr><td>Estrutura do Funil B2B</td><td><span class="code">COM-06</span></td></tr>
+          <tr><td>Regra de Titularidade / Gestão de Representantes</td><td><span class="code">COM-07</span></td></tr>
+          <tr><td>SLA Marketing × Comercial</td><td><span class="code">PROC-02</span></td></tr>
+          <tr><td>Regras Comerciais no Mercos</td><td><span class="code">SYS-11</span></td></tr>
+          <tr><td>Dicionário de KPIs</td><td><span class="code">PERF-01</span></td></tr>
+          <tr><td>Playbook do Vendedor</td><td><span class="code">COM-12</span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    </div>
+
+    <footer>Manual Operacional Smarketing — Porã 2026 · Consolidado a partir de 9 documentos-fonte
+    (COM-06, COM-07, COM-09, COM-11, COM-12, PROC-02, PROC-03, SYS-11, PERF-01).</footer>
+  </main>
+</div>
+
+<script>
+  // active link highlighting
+  const links = document.querySelectorAll('nav.side a');
+  const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href')));
+  function onScroll(){
+    let idx = 0;
+    const y = window.scrollY + 120;
+    sections.forEach((s,i)=>{ if(s && s.offsetTop <= y) idx = i; });
+    links.forEach(l=>l.classList.remove('active'));
+    if(links[idx]) links[idx].classList.add('active');
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  // close mobile nav on link click
+  links.forEach(l=>l.addEventListener('click', ()=>document.querySelector('nav.side').classList.remove('open')));
+</script>
+</body>
+</html>
